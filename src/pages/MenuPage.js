@@ -1,5 +1,5 @@
 // MenuPage.js
-import React, {useState, useEffect} from 'react'
+import {useState, useEffect} from 'react'
 import axios from 'axios'
 import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
 import {faCartShopping} from '@fortawesome/free-solid-svg-icons'
@@ -65,9 +65,19 @@ const DishList = ({dishes, dishCounts, setDishCounts}) => {
             {/* add / remove */}
             {dish.dish_Availability ? (
               <AddButtonContainer>
-                <button onClick={() => handleDecrement(dish.dish_id)}>-</button>
+                <button
+                  type="button"
+                  onClick={() => handleDecrement(dish.dish_id)}
+                >
+                  -
+                </button>
                 <CountText>{dishCounts[dish.dish_id] || 0}</CountText>
-                <button onClick={() => handleIncrement(dish.dish_id)}>+</button>
+                <button
+                  type="button"
+                  onClick={() => handleIncrement(dish.dish_id)}
+                >
+                  +
+                </button>
               </AddButtonContainer>
             ) : (
               <NotAvailText>Not Available</NotAvailText>
