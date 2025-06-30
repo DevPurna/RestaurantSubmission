@@ -35,6 +35,7 @@ export const MobileNav = styled.nav`
 export const Navtext = styled.h1`
   font-size: 1.5rem;
 `
+
 export const OrderText = styled.p`
   font-size: 1.2rem;
 `
@@ -56,17 +57,15 @@ export const ButonContainer = styled.div`
   overflow-x: auto;
   padding-bottom: 8px;
 
-  /* Hide scrollbar on WebKit browsers (Chrome, Safari) */
   &::-webkit-scrollbar {
     display: none;
   }
 
+  scroll-behavior: smooth;
+
   @media (max-width: 575px) {
     gap: 16px;
   }
-
-  /* Optional: smooth scroll */
-  scroll-behavior: smooth;
 
   @media (min-width: 576px) and (max-width: 767px) {
     gap: 16px;
@@ -100,8 +99,6 @@ export const MenuButton = styled.div`
   }
 `
 
-// Each Button -(Menu) Dissh Styles
-
 export const DishesContainer = styled.div`
   display: flex;
   flex-direction: column;
@@ -131,7 +128,7 @@ export const DishContainer = styled.div`
     padding: 6px;
   }
 
-  @media (min-width: 576px && max-width: 768px) {
+  @media (min-width: 576px) and (max-width: 768px) {
     flex-direction: column;
     align-items: center;
     text-align: center;
@@ -143,7 +140,7 @@ export const VegNvegImg = styled.img`
   height: 20px;
   margin-bottom: 8px;
 
-  @media (max-width:575px){
+  @media (max-width: 575px) {
     margin-right: 0px;
   }
 `
@@ -152,11 +149,11 @@ export const DishDetailsContainer = styled.div`
   flex: 1;
   margin: 0 16px;
 
-  @media (max-width:575px){
+  @media (max-width: 575px) {
     margin-right: 4px;
   }
 
-  @media (min-width:576px && max-width: 768px) {
+  @media (min-width: 576px) and (max-width: 768px) {
     margin: 12px 0;
   }
 `
@@ -167,10 +164,10 @@ export const DishName = styled.h3`
   margin: 0 0 6px 0;
   color: #222;
 
-  @media (max-width:575px){
-      font-size: 0.9rem;
-      font-weight: bold;
-      margin: 0 0 2px 0;
+  @media (max-width: 575px) {
+    font-size: 0.9rem;
+    font-weight: bold;
+    margin: 0 0 2px 0;
   }
 `
 
@@ -180,7 +177,7 @@ export const DishPrice = styled.p`
   font-weight: 500;
   color: #444;
 
-  @media (max-width:575px){
+  @media (max-width: 575px) {
     font-size: 0.7rem;
     font-weight: bold;
   }
@@ -191,7 +188,7 @@ export const DishDescription = styled.p`
   color: #666;
   margin: 0 0 10px 0;
 
-  @media (max-width:575px){
+  @media (max-width: 575px) {
     font-size: 0.8rem;
   }
 `
@@ -216,9 +213,9 @@ export const AddButtonContainer = styled.div`
     background-color: transparent;
     border: none;
 
-    @media (max-width:575px){
-        padding: 4px 6px;
-        font-size: 0.8rem;
+    @media (max-width: 575px) {
+      padding: 4px 6px;
+      font-size: 0.8rem;
     }
 
     &:hover {
@@ -231,9 +228,9 @@ export const AddButtonContainer = styled.div`
     }
   }
 
-  @media (max-width:575px){
-      gap: 0px;
-      margin: 6px 0;
+  @media (max-width: 575px) {
+    gap: 0px;
+    margin: 6px 0;
   }
 `
 
@@ -249,11 +246,11 @@ export const DishImage = styled.img`
   border-radius: 8px;
   object-fit: cover;
 
-  @media (max-width:575px){
+  @media (max-width: 575px) {
     max-width: 20%;
   }
 
-  @media (min-width: 576px && max-width: 768px) {
+  @media (min-width: 576px) and (max-width: 768px) {
     width: 100%;
     max-width: 200px;
     margin-top: 12px;
@@ -265,7 +262,7 @@ export const CaloriesText = styled.span`
   margin-right: 10%;
   color: #ffa709;
 
-  @media (max-width:575px){
+  @media (max-width: 575px) {
     margin-right: 4px;
     font-size: 0.8rem;
   }
