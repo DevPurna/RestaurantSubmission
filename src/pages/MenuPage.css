@@ -1,3 +1,231 @@
+/* Layout */
+.parent-container {
+  background-color: #f9f9f9;
+  min-height: 100vh;
+  padding-right: 20px;
+  padding-left: 20px;
+}
+
+/* ───────────  DESKTOP NAV  ─────────── */
+.desktop-nav {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+  padding: 15px 20px;
+  border-radius: 0 0 8px 8px;
+}
+@media (max-width: 768px) {
+  .desktop-nav {
+    display: none;
+  }
+}
+
+/* ───────────  MOBILE NAV  ─────────── */
+.mobile-nav {
+  display: none;
+}
+@media (max-width: 768px) {
+  .mobile-nav {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
+    padding: 10px 15px;
+    border-radius: 0 0 8px 8px;
+  }
+}
+
+.nav-text {
+  margin: 0;
+  color: #000;
+  flex-shrink: 0;
+}
+
+/* Orders badge */
+.order-text {
+  font-size: 1.2rem;
+}
+.orders-icon-container {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+}
+
+/* Body wrapper */
+.text-container {
+  padding: 20px;
+}
+
+/* ───────────  CATEGORY TABS  ─────────── */
+.button-container {
+  display: flex;
+  justify-content: space-around;
+  margin: 16px 0;
+  overflow-x: auto;
+  padding-bottom: 8px;
+  scroll-behavior: smooth;
+}
+.button-container::-webkit-scrollbar {
+  display: none;
+}
+.menu-button {
+  cursor: pointer;
+  font-size: 1rem;
+  border: none;
+  background: transparent;
+  padding-bottom: 6px;
+  border-bottom: 2px solid transparent;
+  flex: 0 0 auto;
+  transition: all 0.3s ease;
+}
+.menu-button:hover,
+.menu-button.active {
+  color: red;
+  border-bottom: 2px solid red;
+}
+@media (min-width: 991px) {
+  .menu-button {
+    font-size: 1.1rem;
+  }
+}
+@media (min-width: 768px) {
+  .button-container {
+    overflow-x: visible;
+    flex-wrap: wrap;
+  }
+}
+
+/* ───────────  DISH LIST  ─────────── */
+.dishes-container {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+/* Individual card */
+.dish-container {
+  display: flex;
+  justify-content: space-between;
+  align-items: flex-start;
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 12px;
+  background-color: #fff;
+  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
+}
+@media (max-width: 576px) {
+  .dish-container {
+    padding: 6px;
+    gap: 0px;
+  }
+}
+
+.veg-icon {
+  width: 20px;
+  height: 20px;
+}
+
+.dish-details {
+  flex: 1;
+  margin: 0 16px;
+}
+
+.dish-name {
+  font-size: 1.1rem;
+  font-weight: 700;
+  margin: 0 0 6px;
+  color: #222;
+}
+@media (max-width: 576px) {
+  .dish-name {
+    font-size: 0.95rem;
+  }
+}
+
+.dish-price {
+  margin: 0 0 6px;
+  font-weight: 500;
+  color: #444;
+}
+
+.dish-description {
+  margin: 0 0 10px;
+  color: #666;
+  font-size: 0.9rem;
+}
+
+.not-avail-text {
+  color: red;
+}
+
+/* Add / remove counter */
+.add-btn-wrapper {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 6px;
+  background: #00c853;
+  width: 80px;
+  height: 30px;
+  border-radius: 6px;
+}
+.add-btn-wrapper button {
+  all: unset;
+  cursor: pointer;
+  font-size: 1rem;
+  font-weight: 700;
+  padding: 0 6px;
+}
+.count-text {
+  font-weight: 700;
+  color: #fff;
+}
+
+/* Calories + image */
+.calories-text {
+  align-self: center;
+  margin-right: 10%;
+  color: #ffa709;
+}
+@media (max-width: 576px) {
+  .calories-text {
+    font-size: 12px;
+    margin-right: 0px;
+  }
+}
+.dish-image {
+  width: 120px;
+  border-radius: 8px;
+  object-fit: cover;
+}
+@media (max-width: 575px) {
+  .dish-image {
+    display: none;
+  }
+}
+
+.dish-image-mobile {
+  width: 40%;
+  height: 40%;
+  max-height: 60px;
+  max-width: 60px;
+}
+
+@media (min-width: 576px) {
+  .dish-image-mobile {
+    display: none;
+  }
+}
+
+/* show cart quantity as bold number */
+.cart-count {
+  font-weight: 600;
+}
+
+/*
+
+
 // MenuPage.styles.js
 import styled from 'styled-components'
 
@@ -33,7 +261,7 @@ export const MobileNav = styled.nav`
 `
 
 export const Navtext = styled.h1`
-  font-size: 1.5rem;
+  color: black;
 `
 
 export const OrderText = styled.p`
@@ -77,9 +305,11 @@ export const ButonContainer = styled.div`
   }
 `
 
-export const MenuButton = styled.div`
+export const MenuButton = styled.button`
   cursor: pointer;
   font-size: 1rem;
+  border: none;
+  background-color: transparent;
   display: inline-block;
   padding-bottom: 6px;
   border-bottom: 2px solid transparent;
@@ -158,7 +388,7 @@ export const DishDetailsContainer = styled.div`
   }
 `
 
-export const DishName = styled.h3`
+export const DishName = styled.h1`
   font-size: 1.1rem;
   font-weight: bold;
   margin: 0 0 6px 0;
@@ -201,8 +431,8 @@ export const AddButtonContainer = styled.div`
   margin: 12px 0;
   background-color: #00c853;
   width: 80px;
+  height: 30px;
   color: white;
-  padding: 5px;
   border: none;
   border-radius: 6px;
 
@@ -234,7 +464,7 @@ export const AddButtonContainer = styled.div`
   }
 `
 
-export const CountText = styled.span`
+export const CountText = styled.p`
   font-size: 1rem;
   font-weight: bold;
   color: #333;
@@ -257,7 +487,7 @@ export const DishImage = styled.img`
   }
 `
 
-export const CaloriesText = styled.span`
+export const CaloriesText = styled.p`
   align-self: center;
   margin-right: 10%;
   color: #ffa709;
@@ -267,3 +497,5 @@ export const CaloriesText = styled.span`
     font-size: 0.8rem;
   }
 `
+
+*/

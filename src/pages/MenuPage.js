@@ -1,200 +1,146 @@
-// MenuPage.js
-import {useState, useEffect} from 'react'
-import axios from 'axios'
-import {FontAwesomeIcon} from '@fortawesome/react-fontawesome'
-import {faCartShopping} from '@fortawesome/free-solid-svg-icons'
+import {useEffect, useState} from 'react'
+import './MenuPage.css'
 
-import {
-  ParentContainer,
-  Navtext,
-  TextContainer,
-  DesktopNav,
-  OrdersIconContainer,
-  OrderText,
-  MobileNav,
-  ButonContainer,
-  MenuButton,
-  DishesContainer,
-  DishContainer,
-  VegNvegImg,
-  DishDetailsContainer,
-  DishName,
-  DishPrice,
-  DishDescription,
-  AddButtonContainer,
-  NotAvailText,
-  CountText,
-  DishImage,
-  CaloriesText,
-} from './styledComponents'
+const dishesApiUrl =
+  'https://apis2.ccbp.in/restaurant-app/restaurant-menu-list-details'
 
-const DishList = ({dishes, dishCounts, setDishCounts}) => {
-  const handleIncrement = dishId => {
-    setDishCounts(prev => ({
-      ...prev,
-      [dishId]: (prev[dishId] || 0) + 1,
-    }))
-  }
-
-  const handleDecrement = dishId => {
-    setDishCounts(prev => ({
-      ...prev,
-      [dishId]: Math.max((prev[dishId] || 0) - 1, 0),
-    }))
-  }
+function DishList({dishes, dishCounts, setDishCounts}) {
+  const inc = id =>
+    setDishCounts(prev => ({...prev, [id]: (prev[id] || 0) + 1}))
+  const dec = id =>
+    setDishCounts(prev => ({...prev, [id]: Math.max((prev[id] || 0) - 1, 0)}))
 
   return (
-    <DishesContainer>
-      {dishes.map(dish => (
-        <DishContainer key={dish.dish_id} style={{marginBottom: '16px'}}>
-          <VegNvegImg
-            src={
-              dish.dish_Type === 2
-                ? 'https://img.icons8.com/color/48/vegetarian-food-symbol.png'
-                : 'https://img.icons8.com/color/48/non-vegetarian-food-symbol.png'
-            }
-            alt={dish.dish_Type === 2 ? 'Vegetarian' : 'Non-Vegetarian'}
-          />
-          <DishDetailsContainer>
-            <DishName>{dish.dish_name}</DishName>
-            <DishPrice>
-              {dish.dish_currency} {dish.dish_price}
-            </DishPrice>
-            <DishDescription>{dish.dish_description}</DishDescription>
+    <div className="dishes-container">
+      {dishes.map(dish => {
+        /* eslint-disable camelcase */
+        const {
+          dish_id,
+          dish_name,
+          dish_image,
+          dish_currency,
+          dish_price,
+          dish_description,
+          dish_calories,
+          dish_Availability,
+          addonCat,
+          dish_Type,
+        } = dish
+        const count = dishCounts[dish_id] || 0
 
-            {/* add / remove */}
-            {dish.dish_Availability ? (
-              <AddButtonContainer>
-                <button
-                  type="button"
-                  onClick={() => handleDecrement(dish.dish_id)}
-                >
-                  -
-                </button>
-                <CountText>{dishCounts[dish.dish_id] || 0}</CountText>
-                <button
-                  type="button"
-                  onClick={() => handleIncrement(dish.dish_id)}
-                >
-                  +
-                </button>
-              </AddButtonContainer>
-            ) : (
-              <NotAvailText>Not Available</NotAvailText>
-            )}
+        return (
+          <div className="dish-container" key={dish_id}>
+            <img
+              className="veg-icon"
+              src={
+                dish_Type === 2
+                  ? 'https://img.icons8.com/color/48/vegetarian-food-symbol.png'
+                  : 'https://img.icons8.com/color/48/non-vegetarian-food-symbol.png'
+              }
+              alt={dish_Type === 2 ? 'Vegetarian' : 'Non-Vegetarian'}
+            />
 
-            {dish.addonCat?.length > 0 && (
-              <p style={{color: 'blue', cursor: 'pointer'}}>
-                Customizations Available
+            <div className="dish-details">
+              <h1 className="dish-name">{dish_name}</h1>
+              <img
+                className="dish-image-mobile d-block d-sm-none"
+                src={dish_image}
+                alt={dish_name}
+              />
+              <p className="dish-price">
+                {dish_currency} {dish_price}
               </p>
-            )}
-          </DishDetailsContainer>
+              <p className="dish-description">{dish_description}</p>
+              {dish_Availability ? (
+                <div className="add-btn-wrapper">
+                  <button type="button" onClick={() => dec(dish_id)}>
+                    -
+                  </button>
+                  <p className="count-text">{count}</p>
+                  <button type="button" onClick={() => inc(dish_id)}>
+                    +
+                  </button>
+                </div>
+              ) : (
+                <p className="not-avail-text">Not available</p>
+              )}
+              {addonCat?.length > 0 && (
+                <p style={{color: 'blue'}}>Customizations available</p>
+              )}
+            </div>
 
-          <CaloriesText>{dish.dish_calories} calories</CaloriesText>
-
-          <DishImage
-            src={dish.dish_image}
-            alt={dish.dish_name}
-            style={{width: '100px', borderRadius: '8px'}}
-          />
-        </DishContainer>
-      ))}
-    </DishesContainer>
+            <p className="calories-text">{dish_calories} calories</p>
+            <img
+              className="dish-image d-none d-lg-block"
+              src={dish_image}
+              alt={dish_name}
+            />
+          </div>
+        )
+      })}
+    </div>
   )
 }
 
-const MenuPage = () => {
-  const [activeButton, setActiveButton] = useState('Salads and Soup')
+function MenuPage() {
   const [menuData, setMenuData] = useState([])
-  const [loading, setLoading] = useState(true)
+  const [restaurantName, setRestaurantName] = useState('')
+  const [activeCategory, setActiveCategory] = useState('')
   const [dishCounts, setDishCounts] = useState({})
+  const [loading, setLoading] = useState(true)
 
   useEffect(() => {
-    const fetchData = async () => {
-      try {
-        const response = await axios.get(
-          'https://apis2.ccbp.in/restaurant-app/restaurant-menu-list-details',
-        )
-        const tableMenu = response.data[0]?.table_menu_list || []
-        setMenuData(tableMenu)
-        setLoading(false)
-      } catch (error) {
-        console.error('Error fetching menu data:', error)
-      }
+    const getData = async () => {
+      const response = await fetch(dishesApiUrl)
+      const json = await response.json()
+      const restaurant = json[0]
+      setRestaurantName(restaurant.restaurant_name)
+      setMenuData(restaurant.table_menu_list)
+      setActiveCategory(restaurant.table_menu_list[0].menu_category)
+      setLoading(false)
     }
-
-    fetchData()
+    getData()
   }, [])
 
-  const activeCategoryData = menuData.find(
-    item => item.menu_category === activeButton,
-  )
-
-  const ActiveComponent = DishList
-
-  const menuItems = menuData.map(item => item.menu_category) // ensure it has a matching component
-
-  const totalItems = Object.values(dishCounts).reduce(
-    (sum, count) => sum + count,
-    0,
-  )
+  const activeObj = menuData.find(cat => cat.menu_category === activeCategory)
+  const cartCount = Object.values(dishCounts).reduce((s, n) => s + n, 0)
 
   return (
-    <ParentContainer>
-      {/* Desktop Navbar */}
-      <DesktopNav>
-        <Navtext>UNI Resto Cafe</Navtext>
-        <OrdersIconContainer>
-          <OrderText>My Orders ({totalItems})</OrderText>
-          <FontAwesomeIcon
-            icon={faCartShopping}
-            style={{color: 'black', fontSize: '1.5rem'}}
-          />
-        </OrdersIconContainer>
-      </DesktopNav>
-
-      {/* Mobile Navbar */}
-      <MobileNav>
-        <Navtext>UNI Resto Cafe</Navtext>
-        <div style={{display: 'flex', alignItems: 'center', gap: '4px'}}>
-          <FontAwesomeIcon
-            icon={faCartShopping}
-            style={{color: 'black', fontSize: '1.2rem'}}
-          />
-          {totalItems > 0 && (
-            <span
-              style={{color: 'red', fontSize: '0.85rem', fontWeight: '500'}}
-            >
-              ({totalItems})
-            </span>
-          )}
+    <div className="parent-container">
+      {/* Single universal responsive header */}
+      <nav className="header-nav">
+        <h1>{restaurantName}</h1>
+        <div className="orders-icon-container">
+          <p>My Orders</p>
+          <p className="cart-count">{cartCount}</p>
         </div>
-      </MobileNav>
+      </nav>
 
-      <TextContainer>
-        <ButonContainer>
-          {menuItems.map(item => (
-            <MenuButton
-              key={item}
-              isActive={activeButton === item}
-              onClick={() => setActiveButton(item)}
-            >
-              {item}
-            </MenuButton>
-          ))}
-        </ButonContainer>
+      {/* Category tabs */}
+      <div className="button-container">
+        {menuData.map(cat => (
+          <button
+            key={cat.menu_category_id}
+            type="button"
+            className={`menu-button ${
+              activeCategory === cat.menu_category ? 'active' : ''
+            }`}
+            onClick={() => setActiveCategory(cat.menu_category)}
+          >
+            {cat.menu_category}
+          </button>
+        ))}
+      </div>
 
-        {loading && <p>Loading menu...</p>}
-
-        {!loading && ActiveComponent && activeCategoryData && (
-          <ActiveComponent
-            dishes={activeCategoryData.category_dishes}
-            dishCounts={dishCounts}
-            setDishCounts={setDishCounts}
-          />
-        )}
-      </TextContainer>
-    </ParentContainer>
+      {/* Dish list */}
+      {!loading && activeObj && (
+        <DishList
+          dishes={activeObj.category_dishes}
+          dishCounts={dishCounts}
+          setDishCounts={setDishCounts}
+        />
+      )}
+    </div>
   )
 }
 
