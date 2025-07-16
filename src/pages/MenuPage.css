@@ -1,64 +1,15 @@
-/* Layout */
-.parent-container {
+/* MenuPage.css */
+
+.menu-parent-container {
   background-color: #f9f9f9;
   min-height: 100vh;
-  padding-right: 20px;
-  padding-left: 20px;
 }
 
-/* ───────────  DESKTOP NAV  ─────────── */
-.desktop-nav {
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  padding: 15px 20px;
-  border-radius: 0 0 8px 8px;
-}
-@media (max-width: 768px) {
-  .desktop-nav {
-    display: none;
-  }
-}
-
-/* ───────────  MOBILE NAV  ─────────── */
-.mobile-nav {
-  display: none;
-}
-@media (max-width: 768px) {
-  .mobile-nav {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    padding: 10px 15px;
-    border-radius: 0 0 8px 8px;
-  }
-}
-
-.nav-text {
-  margin: 0;
-  color: #000;
-  flex-shrink: 0;
-}
-
-/* Orders badge */
-.order-text {
-  font-size: 1.2rem;
-}
-.orders-icon-container {
-  display: flex;
-  align-items: center;
-  gap: 10px;
-}
-
-/* Body wrapper */
-.text-container {
+.menu-text-container {
   padding: 20px;
 }
 
-/* ───────────  CATEGORY TABS  ─────────── */
-.button-container {
+.menu-button-container {
   display: flex;
   justify-content: space-around;
   margin: 16px 0;
@@ -66,44 +17,41 @@
   padding-bottom: 8px;
   scroll-behavior: smooth;
 }
-.button-container::-webkit-scrollbar {
+
+.menu-button-container::-webkit-scrollbar {
   display: none;
 }
+
 .menu-button {
   cursor: pointer;
   font-size: 1rem;
-  border: none;
-  background: transparent;
+  display: inline-block;
   padding-bottom: 6px;
   border-bottom: 2px solid transparent;
   flex: 0 0 auto;
   transition: all 0.3s ease;
 }
+
 .menu-button:hover,
 .menu-button.active {
   color: red;
   border-bottom: 2px solid red;
 }
+
 @media (min-width: 991px) {
   .menu-button {
     font-size: 1.1rem;
   }
 }
-@media (min-width: 768px) {
-  .button-container {
-    overflow-x: visible;
-    flex-wrap: wrap;
-  }
-}
 
-/* ───────────  DISH LIST  ─────────── */
+/* Dishes Section */
 .dishes-container {
   display: flex;
   flex-direction: column;
+  padding: 16px;
   gap: 16px;
 }
 
-/* Individual card */
 .dish-container {
   display: flex;
   justify-content: space-between;
@@ -113,17 +61,13 @@
   border-radius: 12px;
   background-color: #fff;
   box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-}
-@media (max-width: 576px) {
-  .dish-container {
-    padding: 6px;
-    gap: 0px;
-  }
+  flex-wrap: wrap;
 }
 
-.veg-icon {
+.veg-nonveg-img {
   width: 20px;
   height: 20px;
+  margin-bottom: 8px;
 }
 
 .dish-details {
@@ -133,297 +77,25 @@
 
 .dish-name {
   font-size: 1.1rem;
-  font-weight: 700;
-  margin: 0 0 6px;
+  font-weight: bold;
+  margin: 0 0 6px 0;
   color: #222;
-}
-@media (max-width: 576px) {
-  .dish-name {
-    font-size: 0.95rem;
-  }
 }
 
 .dish-price {
-  margin: 0 0 6px;
+  font-size: 1rem;
   font-weight: 500;
+  margin: 0 0 6px 0;
   color: #444;
 }
 
 .dish-description {
-  margin: 0 0 10px;
-  color: #666;
-  font-size: 0.9rem;
-}
-
-.not-avail-text {
-  color: red;
-}
-
-/* Add / remove counter */
-.add-btn-wrapper {
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  gap: 6px;
-  background: #00c853;
-  width: 80px;
-  height: 30px;
-  border-radius: 6px;
-}
-.add-btn-wrapper button {
-  all: unset;
-  cursor: pointer;
-  font-size: 1rem;
-  font-weight: 700;
-  padding: 0 6px;
-}
-.count-text {
-  font-weight: 700;
-  color: #fff;
-}
-
-/* Calories + image */
-.calories-text {
-  align-self: center;
-  margin-right: 10%;
-  color: #ffa709;
-}
-@media (max-width: 576px) {
-  .calories-text {
-    font-size: 12px;
-    margin-right: 0px;
-  }
-}
-.dish-image {
-  width: 120px;
-  border-radius: 8px;
-  object-fit: cover;
-}
-@media (max-width: 575px) {
-  .dish-image {
-    display: none;
-  }
-}
-
-.dish-image-mobile {
-  width: 40%;
-  height: 40%;
-  max-height: 60px;
-  max-width: 60px;
-}
-
-@media (min-width: 576px) {
-  .dish-image-mobile {
-    display: none;
-  }
-}
-
-/* show cart quantity as bold number */
-.cart-count {
-  font-weight: 600;
-}
-
-/*
-
-
-// MenuPage.styles.js
-import styled from 'styled-components'
-
-export const ParentContainer = styled.div`
-  background-color: #f9f9f9;
-  min-height: 100vh;
-`
-
-export const DesktopNav = styled.nav`
-  display: flex;
-  justify-content: space-between;
-  align-items: center;
-  box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-  padding: 15px 20px;
-  border-radius: 0 0 8px 8px;
-
-  @media (max-width: 768px) {
-    display: none;
-  }
-`
-
-export const MobileNav = styled.nav`
-  display: none;
-
-  @media (max-width: 768px) {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    box-shadow: 0 2px 6px rgba(0, 0, 0, 0.2);
-    padding: 10px 15px;
-    border-radius: 0 0 8px 8px;
-  }
-`
-
-export const Navtext = styled.h1`
-  color: black;
-`
-
-export const OrderText = styled.p`
-  font-size: 1.2rem;
-`
-
-export const OrdersIconContainer = styled.div`
-  display: flex;
-  align-items: center;
-  gap: 10px;
-`
-
-export const TextContainer = styled.div`
-  padding: 20px;
-`
-
-export const ButonContainer = styled.div`
-  display: flex;
-  justify-content: space-around;
-  margin: 16px 0;
-  overflow-x: auto;
-  padding-bottom: 8px;
-
-  &::-webkit-scrollbar {
-    display: none;
-  }
-
-  scroll-behavior: smooth;
-
-  @media (max-width: 575px) {
-    gap: 16px;
-  }
-
-  @media (min-width: 576px) and (max-width: 767px) {
-    gap: 16px;
-  }
-
-  @media (min-width: 768px) {
-    overflow-x: visible;
-    flex-wrap: wrap;
-  }
-`
-
-export const MenuButton = styled.button`
-  cursor: pointer;
-  font-size: 1rem;
-  border: none;
-  background-color: transparent;
-  display: inline-block;
-  padding-bottom: 6px;
-  border-bottom: 2px solid transparent;
-  flex: 0 0 auto;
-  color: ${({isActive}) => (isActive ? 'red' : 'black')};
-  border-bottom: ${({isActive}) =>
-    isActive ? '2px solid red' : '2px solid transparent'};
-  transition: all 0.3s ease;
-
-  &:hover {
-    color: red;
-    border-bottom: 2px solid red;
-  }
-
-  @media (min-width: 991px) {
-    font-size: 1.1rem;
-  }
-`
-
-export const DishesContainer = styled.div`
-  display: flex;
-  flex-direction: column;
-  padding: 16px;
-
-  @media (max-width: 575px) {
-    padding: 0px;
-    gap: 10px;
-  }
-`
-
-export const NotAvailText = styled.p`
-  color: red;
-`
-
-export const DishContainer = styled.div`
-  display: flex;
-  justify-content: space-between;
-  align-items: flex-start;
-  border: 1px solid #ddd;
-  padding: 16px;
-  border-radius: 12px;
-  background-color: #fff;
-  box-shadow: 0 2px 10px rgba(0, 0, 0, 0.05);
-
-  @media (max-width: 575px) {
-    padding: 6px;
-  }
-
-  @media (min-width: 576px) and (max-width: 768px) {
-    flex-direction: column;
-    align-items: center;
-    text-align: center;
-  }
-`
-
-export const VegNvegImg = styled.img`
-  width: 20px;
-  height: 20px;
-  margin-bottom: 8px;
-
-  @media (max-width: 575px) {
-    margin-right: 0px;
-  }
-`
-
-export const DishDetailsContainer = styled.div`
-  flex: 1;
-  margin: 0 16px;
-
-  @media (max-width: 575px) {
-    margin-right: 4px;
-  }
-
-  @media (min-width: 576px) and (max-width: 768px) {
-    margin: 12px 0;
-  }
-`
-
-export const DishName = styled.h1`
-  font-size: 1.1rem;
-  font-weight: bold;
-  margin: 0 0 6px 0;
-  color: #222;
-
-  @media (max-width: 575px) {
-    font-size: 0.9rem;
-    font-weight: bold;
-    margin: 0 0 2px 0;
-  }
-`
-
-export const DishPrice = styled.p`
-  font-size: 1rem;
-  margin: 0 0 6px 0;
-  font-weight: 500;
-  color: #444;
-
-  @media (max-width: 575px) {
-    font-size: 0.7rem;
-    font-weight: bold;
-  }
-`
-
-export const DishDescription = styled.p`
   font-size: 0.9rem;
   color: #666;
   margin: 0 0 10px 0;
+}
 
-  @media (max-width: 575px) {
-    font-size: 0.8rem;
-  }
-`
-
-export const AddButtonContainer = styled.div`
+.add-button-container {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -431,71 +103,64 @@ export const AddButtonContainer = styled.div`
   margin: 12px 0;
   background-color: #00c853;
   width: 80px;
-  height: 30px;
   color: white;
+  padding: 5px;
   border: none;
   border-radius: 6px;
+}
 
-  button {
-    font-size: 1rem;
-    font-weight: bold;
-    cursor: pointer;
-    background-color: transparent;
-    border: none;
+.add-button-container button {
+  font-size: 1rem;
+  font-weight: bold;
+  cursor: pointer;
+  background-color: transparent;
+  border: none;
+}
 
-    @media (max-width: 575px) {
-      padding: 4px 6px;
-      font-size: 0.8rem;
-    }
+.add-button-container button:hover {
+  background-color: #00b44b;
+}
 
-    &:hover {
-      background-color: #00b44b;
-    }
-
-    &:disabled {
-      background-color: #ccc;
-      cursor: not-allowed;
-    }
-  }
-
-  @media (max-width: 575px) {
-    gap: 0px;
-    margin: 6px 0;
-  }
-`
-
-export const CountText = styled.p`
+.count-text {
   font-size: 1rem;
   font-weight: bold;
   color: #333;
-`
+}
 
-export const DishImage = styled.img`
+.add-to-cart-btn {
+  margin-top: 8px;
+  padding: 6px 12px;
+  background-color: #0b69ff;
+  color: #fff;
+  border: none;
+  border-radius: 4px;
+  cursor: pointer;
+}
+
+.added-to-cart {
+  color: green;
+  font-size: 12px;
+  margin-top: 8px;
+}
+
+.not-available {
+  color: red;
+}
+
+.customization-text {
+  color: blue;
+  cursor: pointer;
+}
+
+.calories-text {
+  align-self: center;
+  margin-right: 10%;
+  color: #ffa709;
+}
+
+.dish-image {
   width: 120px;
   height: auto;
   border-radius: 8px;
   object-fit: cover;
-
-  @media (max-width: 575px) {
-    max-width: 20%;
-  }
-
-  @media (min-width: 576px) and (max-width: 768px) {
-    width: 100%;
-    max-width: 200px;
-    margin-top: 12px;
-  }
-`
-
-export const CaloriesText = styled.p`
-  align-self: center;
-  margin-right: 10%;
-  color: #ffa709;
-
-  @media (max-width: 575px) {
-    margin-right: 4px;
-    font-size: 0.8rem;
-  }
-`
-
-*/
+}
