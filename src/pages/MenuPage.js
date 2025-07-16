@@ -14,6 +14,7 @@ function DishList({dishes, dishCounts, setDishCounts}) {
     <div className="dishes-container">
       {dishes.map(dish => {
         /* eslint-disable camelcase */
+       // camelcase senesitive
         const {
           dish_id,
           dish_name,
